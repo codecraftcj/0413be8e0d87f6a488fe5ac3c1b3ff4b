@@ -29,17 +29,34 @@ with sync_playwright() as playwright:
       time.sleep(10)
 
       #ADD SUGGESTED
-      page.goto("https://www.facebook.com/friends/suggestions")
-      page.wait_for_load_state()
-      # elements = page.get_by_text("Ajouter")
-      elements = page.query_selector_all("span:contains('Ajouter')")
-      for element in elements:
-            print(element.text_content())
+      # page.goto("https://www.facebook.com/friends/suggestions")
+      # page.wait_for_load_state()
+      # # elements = page.get_by_text("Ajouter")
+      # elements = page.query_selector_all("span:contains('Ajouter')")
+      # for element in elements:
+      #       print(element.text_content())
 
       #ADD SEARCH QUERY
-
+      
       #Search in facebook a random string
+      """
+      targets
 
+      search feed = div class= "x193iq5w x1xwk8fm" role="feed"
+
+      search items = span class="x1lliihq x6ikm8r x10wlt62 x1n2onr6 xlyipyv xuxw1ft" text = "Ajouter un(e) ami(e)"
+      """
+      location_selector = "x1y1aw1k x1sxyh0 xwib8y2 xurb0ha"
+
+      page.goto("https://web.facebook.com/search/people?q=aws&filters=eyJjaXR5OjAiOiJ7XCJuYW1lXCI6XCJ1c2Vyc19sb2NhdGlvblwiLFwiYXJnc1wiOlwiMTEwNzc0MjQ1NjE2NTI1XCJ9In0%3D")
+      page.query_selector("div[role='feed']").click()
+      print("div clicked")
+      page.mouse.wheel(0,99999)
+      print("SCROLLING")
+      time.sleep(5)
+      page.mouse.wheel(0,99999)
+      print("SCROLLING")
+      time.sleep(5)
       #Go to Personnes
 
       #Apply a Search term in Ville "Paris"
