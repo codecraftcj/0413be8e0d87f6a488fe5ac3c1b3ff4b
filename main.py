@@ -45,6 +45,12 @@ with sync_playwright() as playwright:
       search feed = div class= "x193iq5w x1xwk8fm" role="feed"
 
       search items = span class="x1lliihq x6ikm8r x10wlt62 x1n2onr6 xlyipyv xuxw1ft" text = "Ajouter un(e) ami(e)"
+      
+      if span with class "x193iq5w xeuugli x13faqbe x1vvkbs x1xmvt09 x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x xudqn12 x3x7a5m x6prxxf xvq8zen xo1l8bm xi81zsa x2b8uid"
+
+            max page results achieved
+
+
       """
       location_selector = "x1y1aw1k x1sxyh0 xwib8y2 xurb0ha"
 
