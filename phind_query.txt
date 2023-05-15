@@ -1,0 +1,13 @@
+How many accounts can I add on facebook before I get warned of suspicious behaviour
+ANSWER
+There isn't a specific number of accounts you can add on Facebook before being warned of suspicious behavior. However, there are certain actions and limits that you should be aware of to avoid account bans or restrictions. These include:
+
+Mass follow limit: 400-450 follows in 24 hours can lead to a ban, requiring you to provide an ID to unblock the account elfsight.com.
+Adding friends to a group limit: No more than 600 in 24 hours elfsight.com.
+Adding friends to a page limit (for the page): 10,000 in 24 hours elfsight.com.
+Pages likes: Approximately 5,000 in a day, although some people have claimed to reach 10,000 likes without being banned elfsight.com.
+For new accounts, it's crucial to strictly observe all the actions limits and avoid actively promoting the account immediately. Instead, focus on filling up the account and publishing posts to gain trust elfsight.com.
+
+Frequent reasons for blocking commercial accounts include mismatched payment information, sudden increase in advertising, creating many ads in a short time, creating many rejected ads, and setting up a new Ads Manager after Facebook blocks the previous one elfsight.com.
+
+If your Facebook Ads account gets suspended, it's typically due to behaviors that trigger red flags in Facebook's algorithm, such as high negative feedback rates on your ads or failure to comply with Facebook's Advertising Policies socialmediaexaminer.com. To prevent account suspension, follow Facebook's Advertising Policies, use a new credit card number if you create a new ad account, make the user experience seamless, and take responsibility for your actions socialmediaexaminer.com.
