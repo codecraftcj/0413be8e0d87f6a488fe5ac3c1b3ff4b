@@ -11,6 +11,9 @@ import string
 import time
 
 #INITIALS
+#CONFIG PARSER INIT
+config = configparser.RawConfigParser()
+config.read("config.ini")
 
 SEARCH_SEQUENCE_URL_LIST = [
       "https://web.facebook.com/search/people?q=pes&filters=eyJjaXR5OjAiOiJ7XCJuYW1lXCI6XCJ1c2Vyc19sb2NhdGlvblwiLFwiYXJnc1wiOlwiMTEwNzc0MjQ1NjE2NTI1XCJ9In0%3D",
@@ -20,6 +23,11 @@ DELAY_RANGE = [30,90]
 DELAY_ON_ERROR = 30 # delay in seconds when an error occurs
 SEARCH_QUOTA = 50
 BROWSER_IS_HEADLESS = False
+SEARCH_QUOTA = config.get("Facebook Account","SEARCH_QUOTA")
+BROWSER_IS_HEADLESS = config.get("Facebook Account","BROWSER_IS_VISIBLE")
+USERNAME = config.get("Facebook Account","USERNAME")
+PASSWORD = config.get("Facebook Account","PASSWORD")
+
 current_added_friends = []
 
 def random_delay(numbers):
@@ -41,12 +49,7 @@ def search_url_modifier(url):
       return new_url
 
                    
-#CONFIG PARSER INIT
-config = configparser.RawConfigParser()
-config.read("config.ini")
 
-USERNAME = config.get("Facebook Account","USERNAME")
-PASSWORD = config.get("Facebook Account","PASSWORD")
 
 with sync_playwright() as playwright:
 

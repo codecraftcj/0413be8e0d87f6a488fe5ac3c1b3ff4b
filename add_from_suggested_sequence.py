@@ -9,14 +9,21 @@ from bs4 import BeautifulSoup
 import random
 import string
 import time
+config = configparser.RawConfigParser()
+config.read("config.ini")
 
 #INITIALS
+#CONFIG PARSER INIT
 
 SUGGESTED_URL = "https://www.facebook.com/friends/suggestions"
 DELAY_RANGE = [30,90]
 DELAY_ON_ERROR = 30 # delay in seconds when an error occurs
-SEARCH_QUOTA = 50
-BROWSER_IS_HEADLESS = False
+
+SEARCH_QUOTA = config.get("Facebook Account","SEARCH_QUOTA")
+BROWSER_IS_HEADLESS = config.get("Facebook Account","BROWSER_IS_VISIBLE")
+USERNAME = config.get("Facebook Account","USERNAME")
+PASSWORD = config.get("Facebook Account","PASSWORD")
+
 current_added_friends = []
 
 def random_delay(numbers):
@@ -38,12 +45,6 @@ def search_url_modifier(url):
       return new_url
 
                    
-#CONFIG PARSER INIT
-config = configparser.RawConfigParser()
-config.read("config.ini")
-
-USERNAME = config.get("Facebook Account","USERNAME")
-PASSWORD = config.get("Facebook Account","PASSWORD")
 
 with sync_playwright() as playwright:
 
