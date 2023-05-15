@@ -16,9 +16,11 @@ SEARCH_SEQUENCE_URL_LIST = [
       "https://web.facebook.com/search/people?q=pes&filters=eyJjaXR5OjAiOiJ7XCJuYW1lXCI6XCJ1c2Vyc19sb2NhdGlvblwiLFwiYXJnc1wiOlwiMTEwNzc0MjQ1NjE2NTI1XCJ9In0%3D",
 
 ]
-DELAY_RANGE = [10,15]
+DELAY_RANGE = [30,90]
 DELAY_ON_ERROR = 30 # delay in seconds when an error occurs
-
+SEARCH_QUOTA = 50
+BROWSER_IS_HEADLESS = False
+current_added_friends = []
 
 def random_delay(numbers):
     """Generate a random delay in seconds within the range defined by a list of two numbers."""
@@ -50,7 +52,7 @@ with sync_playwright() as playwright:
 
       #BOT LOGIN
       chromium = playwright.chromium # or "firefox" or "webkit".
-      browser = chromium.launch(headless=False) #switch to False when debugging
+      browser = chromium.launch(headless=BROWSER_IS_HEADLESS) #switch to False when debugging
       page = browser.new_page()
       page.goto("https://www.facebook.com/")
       time.sleep(5)
@@ -73,14 +75,16 @@ with sync_playwright() as playwright:
       
       #Search in facebook a random string
 
-      while True:
+      while len(current_added_friends) <= SEARCH_QUOTA: 
       
             new_query = search_url_modifier(SEARCH_SEQUENCE_URL_LIST[0])
             page.goto(new_query,timeout=0)
             page.query_selector("div[role='feed']").click()
             print("div clicked")
 
-            while page.query_selector("span[class='x193iq5w xeuugli x13faqbe x1vvkbs x1xmvt09 x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x xudqn12 x3x7a5m x6prxxf xvq8zen xo1l8bm xi81zsa x2b8uid']") == None:
+            # new class = x193iq5w xeuugli x13faqbe x1vvkbs xlh3980 xvmahel x1n0sxbx x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x4zkp8e x3x7a5m x6prxxf xvq8zen xo1l8bm xi81zsa x2b8uid
+            # old class = x193iq5w xeuugli x13faqbe x1vvkbs x1xmvt09 x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x xudqn12 x3x7a5m x6prxxf xvq8zen xo1l8bm xi81zsa x2b8uid
+            while page.query_selector("span[class='x193iq5w xeuugli x13faqbe x1vvkbs xlh3980 xvmahel x1n0sxbx x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x x4zkp8e x3x7a5m x6prxxf xvq8zen xo1l8bm xi81zsa x2b8uid']") == None:
                   page.mouse.wheel(0,99999)
                   print("SCROLLING")
                   time.sleep(5)
@@ -101,6 +105,7 @@ with sync_playwright() as playwright:
                         print(f"Click the account with details\n {account.text_content()}")
                         if account.query_selector('span:text("Ajouter un(e) ami(e)")'):
                               account.query_selector('span:text("Ajouter un(e) ami(e)")').click()
+                              current_added_friends.append(account)
                               random_delay(DELAY_RANGE)
                               additional_delay = 0
 
@@ -114,8 +119,8 @@ with sync_playwright() as playwright:
                                     print(f"Error found trying again in {DELAY_ON_ERROR+additional_delay}")
                                     time.sleep(DELAY_ON_ERROR+additional_delay)
 
-                                    account.query_selector('span:text("Ajouter un(e) ami(e)")').click()
+                                    # account.query_selector('span:text("Ajouter un(e) ami(e)")').click()
                                     error_modal = page.query_selector("div[class='x1jx94hy xh8yej3 x1hlgzme xvcs8rp x1bpvpm7 xefnots x13xjmei x1n2onr6 xv7j57z']")
-
+      browser.close()
                                     
 
