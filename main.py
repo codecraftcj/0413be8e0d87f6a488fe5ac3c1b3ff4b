@@ -50,7 +50,7 @@ if __name__ == "__main__":
         browser = chromium.launch(headless=False) #switch to False when debugging
             
         for index,account in accounts_df.iterrows():
-            if account["FB_ADDER_STATUS"] != "Complete" and account["FB_ADDER_STATUS"] != "Warned":
+            if account["FB_ADDER_STATUS"] != "Complete" and account["FB_ADDER_STATUS"] != "Warned" and account["FB_ADDER_STATUS"] != "Banned":
                 account_context = browser.new_context()
                 account_page = account_context.new_page()
                 account_page.goto("https://www.facebook.com/")
@@ -67,7 +67,15 @@ if __name__ == "__main__":
                 account_page.query_selector("button[type='submit']").click()
 
                 time.sleep(10)
-
+                if account_page.query_selector("//*[text() = 'Nous avons suspendu votre compte']"):
+                    accounts_df.at[index,"FB_ADDER_STATUS"] = "Banned"
+                    excel_writer = pd.ExcelWriter(excel_file,engine="openpyxl")
+                    accounts_df.to_excel(excel_writer,sheet_name="Accounts",index=False)
+                    search_names_df.to_excel(excel_writer,sheet_name="Search Names",index=False)
+                    excel_writer.close()
+                    notify("Facebook Friend Adder",f"Account {account['Account Name']} is Banned")
+                    time.sleep(3)
+                    continue
                 current_added_friends = []
                 chosen_names = []
                 current_names = search_names_list
@@ -118,7 +126,6 @@ if __name__ == "__main__":
                                             
                                             if ADD_FRIENDS:
                                                 friend.query_selector('span:text("Ajouter un(e) ami(e)")').click()
-                                                
                                                 added_friends_count+=1
                                                 current_added_friends.append(friend)
                                                 
@@ -177,9 +184,7 @@ if __name__ == "__main__":
                 excel_writer.close()
                 notify("Facebook Friend Adder","Done Running!")
                 
-        print("No Accounts available to automate")
-        print("Exiting in 10 seconds")
-        time.sleep(10)
+    print("Done")
 
             
 
