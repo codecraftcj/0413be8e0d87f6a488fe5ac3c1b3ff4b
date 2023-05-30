@@ -1,6 +1,6 @@
 source env/bin/activate
 
-python3 search_sequence.py
+python3 main.py
 
 clear
 
